@@ -1,26 +1,40 @@
-<h1>Job applications</h1>
-<p><%= link_to "Add application", new_job_application_path %></p>
+<div class="mb-6 flex items-center justify-between">
+  <h1 class="text-3xl font-bold bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">Job applications</h1>
+  <%= link_to "Add application", new_job_application_path,
+        class: "rounded-lg bg-linear-to-r from-pink-500 to-violet-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20 hover:from-pink-400 hover:to-violet-400" %>
+</div>
 
 <% if @job_applications.any? %>
-    <table>
-        <thead>
-            <tr><th>Company</th><th>Role</th><th>Status</th><th>Applied</th></tr>
-        </thead>
-        <tbody>
-            <% @job_applications.each do |job_application| %>
-                <tr>
-                    <td><%= job_application.company %></td>
-                    <td><%= job_application.role %></td>
-                    <td><%= job_application.status.humanize %></td>
-                    <td><%= job_application.applied_on %></td>
-                    <td>
-                        <%= link_to "Edit", edit_job_application_path(job_application) %>
-                        <%= button_to "Delete", job_application, method: :delete, form: { data: { turbo_confirm: "Delete #{job_application.company}?" } } %>
-                    </td>
-                </tr>
-            <% end %>
-        </tbody>
+  <div class="overflow-x-auto rounded-xl border border-edge bg-panel">
+    <table class="min-w-full divide-y divide-edge text-sm">
+      <thead class="text-left text-xs uppercase tracking-wide text-ink-muted">
+        <tr>
+          <th class="px-4 py-3 font-medium">Company</th>
+          <th class="px-4 py-3 font-medium">Role</th>
+          <th class="px-4 py-3 font-medium">Status</th>
+          <th class="px-4 py-3 font-medium">Applied</th>
+          <th class="px-4 py-3"></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-edge">
+        <% @job_applications.each do |job_application| %>
+          <tr class="hover:bg-panel-hover transition-colors">
+            <td class="px-4 py-3 font-medium"><%= job_application.company %></td>
+            <td class="px-4 py-3 text-ink-muted"><%= job_application.role %></td>
+            <td class="px-4 py-3"><%= status_badge(job_application) %></td>
+            <td class="px-4 py-3 text-ink-muted"><%= job_application.applied_on&.to_fs(:long) || "—" %></td>
+            <td class="whitespace-nowrap px-4 py-3 text-right">
+              <%= link_to "Edit", edit_job_application_path(job_application), class: "text-sky-400 hover:text-sky-300" %>
+              <%= button_to "Delete", job_application, method: :delete,
+                    form_class: "inline ml-3",
+                    class: "cursor-pointer text-pink-400 hover:text-pink-300",
+                    form: { data: { turbo_confirm: "Delete #{job_application.company}?" } } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
+  </div>
 <% else %>
-    <p>No applications yet.</p>
+  <p class="text-ink-muted">No applications yet.</p>
 <% end %>

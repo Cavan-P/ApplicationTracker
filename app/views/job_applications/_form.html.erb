@@ -1,21 +1,40 @@
-<%= form_with model: job_application do |form| %>
+<%= form_with model: job_application, class: "space-y-4 rounded-xl border border-edge bg-panel p-6" do |form| %>
     <% if job_application.errors.any? %>
-      <ul>
+    <div class="rounded-lg bg-rose-500/10 px-4 py-3 text-sm text-rose-300 ring-1 ring-rose-500/30">
+        <p class="font-medium">Couldn't save this application:</p>
+        <ul class="mt-1 list-disc pl-5">
         <% job_application.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+            <li><%= message %></li>
         <% end %>
-      </ul>
+        </ul>
+    </div>
     <% end %>
   
-    <p><%= form.label :company %><br><%= form.text_field :company %></p>
-    <p><%= form.label :role %><br><%= form.text_field :role %></p>
-    <p>
-      <%= form.label :status %><br>
-      <%= form.select :status, JobApplication.statuses.keys.map { |s| [s.humanize, s] } %>
-    </p>
-    <p><%= form.label :applied_on %><br><%= form.date_field :applied_on %></p>
-    <p><%= form.label :url, "Posting URL" %><br><%= form.url_field :url %></p>
-    <p><%= form.label :notes %><br><%= form.textarea :notes %></p>
+    <div>
+        <%= form.label :company, class: "mb-1 block text-sm font-medium text-ink-muted" %>
+        <%= form.text_field :company, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
+    </div>
+    <div>
+        <%= form.label :role, class: "mb-1 block text-sm font-medium text-ink-muted" %>
+        <%= form.text_field :role, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
+    </div>
+    <div>
+        <%= form.label :status, class: "mb-1 block text-sm font-medium text-ink-muted" %>
+        <%= form.select :status, JobApplication.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
+    </div>
+    <div>
+        <%= form.label :applied_on, class: "mb-1 block text-sm font-medium text-ink-muted" %>
+        <%= form.date_field :applied_on, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
+    </div>
+    <div>
+        <%= form.label :url, "Posting URL", class: "mb-1 block text-sm font-medium text-ink-muted" %>
+        <%= form.url_field :url, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
+    </div>
+    <div>
+        <%= form.label :notes, class: "mb-1 block text-sm font-medium text-ink-muted" %>
+        <%= form.textarea :notes, rows: 4, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
+    </div>
   
-    <%= form.submit %>
+    <%= form.submit class: "cursor-pointer rounded-lg bg-linear-to-r from-pink-500 to-violet-500 px-4 py-2 text-sm font-semibold text-white hover:from-pink-400 hover:to-violet-400" %>
+
   <% end %>

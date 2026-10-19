@@ -23,8 +23,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-  <% if notice %><p style="color: green"><%= notice %></p><% end %>
-  <%= yield %>
-</body>
+  <body class="min-h-screen bg-night text-ink antialiased">
+    <main class="mx-auto max-w-4xl px-4 py-10">
+      <% if notice %>
+        <p class="mb-4 rounded-lg bg-emerald-500/10 px-4 py-2 text-emerald-300 ring-1 ring-emerald-500/30"><%= notice %></p>
+      <% end %>
+      <%= yield %>
+    </main>
+  </body>
 </html>

@@ -1,5 +1,6 @@
-<h1>New application</h1>
+<div class="mb-6 flex items-center justify-between">
+  <h1 class="text-3xl font-bold bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">New application</h1>
+  <%= link_to "← Back", job_applications_path, class: "text-sm text-sky-400 hover:text-sky-300" %>
+</div>
 
 <%= render "form", job_application: @job_application %>
-
-<p><%= link_to "Back", job_applications_path %></p>

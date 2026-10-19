@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-night: #0d0a1a;        /* page background: near-black violet */
+  --color-panel: #17122b;        /* cards, table, form */
+  --color-panel-hover: #211a3d;  /* row hover */
+  --color-edge: #2c2450;         /* borders and dividers */
+  --color-ink: #ece8ff;          /* main text */
+  --color-ink-muted: #a59dc8;    /* secondary text, labels */
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-image: radial-gradient(ellipse at top, rgb(192 38 211 / 0.12), transparent 60%);
+    background-attachment: fixed;
+  }
+}
