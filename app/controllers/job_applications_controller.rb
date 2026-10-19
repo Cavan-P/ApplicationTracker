@@ -1,5 +1,5 @@
 class JobApplicationsController < ApplicationController
-  before_action :set_job_application, only: [:edit, :update, :destroy]
+  before_action :set_job_application, only: [ :edit, :update, :destroy ]
 
   def index
     @job_applications = JobApplication.order(applied_on: :desc)
@@ -38,11 +38,10 @@ class JobApplicationsController < ApplicationController
   private
 
   def job_application_params
-    params.expect(job_application: [:company, :role, :status, :applied_on, :url, :notes])
+    params.expect(job_application: [ :company, :role, :status, :applied_on, :url, :notes ])
   end
 
   def set_job_application
     @job_application = JobApplication.find(params.expect(:id))
   end
-
 end

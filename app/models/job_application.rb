@@ -1,4 +1,4 @@
-#Ruby standard is 2 space indentation I guess
+# Ruby standard is 2 space indentation I guess
 
 class JobApplication < ApplicationRecord
   enum :status, {
@@ -10,5 +10,5 @@ class JobApplication < ApplicationRecord
   }, validate: true
 
   validates :company, :role, presence: true
-  validates :url, format: { with: %r{\Ahttps?://} }, allow_blank: true
+  validates :url, format: { with: %r{\Ahttps?://\S+\z} }, allow_blank: true
 end

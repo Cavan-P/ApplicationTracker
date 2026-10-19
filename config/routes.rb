@@ -11,5 +11,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "job_applications#index"
-  resources :job_applications, except: [:show]
+  resources :job_applications, except: [ :show ]
 end
