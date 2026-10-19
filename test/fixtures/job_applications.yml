@@ -1,17 +1,12 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+acme:
+  company: Acme Corp
+  role: Junior Developer
+  status: applied
+  applied_on: 2026-10-01
+  url: https://acme.example.com/jobs/1
 
-one:
-  company: MyString
-  role: MyString
-  status: MyString
-  applied_on: 2026-10-19
-  url: MyString
-  notes: MyText
-
-two:
-  company: MyString
-  role: MyString
-  status: MyString
-  applied_on: 2026-10-19
-  url: MyString
-  notes: MyText
+globex:
+  company: Globex
+  role: Backend Intern
+  status: interviewing
+  applied_on: 2026-09-15
