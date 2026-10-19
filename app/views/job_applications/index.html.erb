@@ -13,6 +13,10 @@
                     <td><%= job_application.role %></td>
                     <td><%= job_application.status.humanize %></td>
                     <td><%= job_application.applied_on %></td>
+                    <td>
+                        <%= link_to "Edit", edit_job_application_path(job_application) %>
+                        <%= button_to "Delete", job_application, method: :delete, form: { data: { turbo_confirm: "Delete #{job_application.company}?" } } %>
+                    </td>
                 </tr>
             <% end %>
         </tbody>

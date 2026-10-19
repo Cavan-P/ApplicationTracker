@@ -1,25 +1,5 @@
 <h1>New application</h1>
 
-<%= form_with model: @job_application do |form| %>
-  <% if @job_application.errors.any? %>
-    <ul>
-      <% @job_application.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <p><%= form.label :company %><br><%= form.text_field :company %></p>
-  <p><%= form.label :role %><br><%= form.text_field :role %></p>
-  <p>
-    <%= form.label :status %><br>
-    <%= form.select :status, JobApplication.statuses.keys.map { |s| [s.humanize, s] } %>
-  </p>
-  <p><%= form.label :applied_on %><br><%= form.date_field :applied_on %></p>
-  <p><%= form.label :url, "Posting URL" %><br><%= form.url_field :url %></p>
-  <p><%= form.label :notes %><br><%= form.textarea :notes %></p>
-
-  <%= form.submit %>
-<% end %>
+<%= render "form", job_application: @job_application %>
 
 <p><%= link_to "Back", job_applications_path %></p>
