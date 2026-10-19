@@ -1,0 +1,22 @@
+<h1>Job applications</h1>
+<p><%= link_to "Add application", new_job_application_path %></p>
+
+<% if @job_applications.any? %>
+    <table>
+        <thead>
+            <tr><th>Company</th><th>Role</th><th>Status</th><th>Applied</th></tr>
+        </thead>
+        <tbody>
+            <% @job_applications.each do |job_application| %>
+                <tr>
+                    <td><%= job_application.company %></td>
+                    <td><%= job_application.role %></td>
+                    <td><%= job_application.status.humanize %></td>
+                    <td><%= job_application.applied_on %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <p>No applications yet.</p>
+<% end %>
