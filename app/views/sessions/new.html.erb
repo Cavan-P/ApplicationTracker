@@ -1,0 +1,24 @@
+<div class="mx-auto mt-16 max-w-sm rounded-xl border border-edge bg-panel p-6">
+
+  <h1 class="text-3xl font-bold bg-linear-to-r from-pink-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">Sign in</h1>
+
+  <%= form_with url: session_url, class: "contents" do |form| %>
+    <div class="my-5">
+      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none placeholder:text-ink-muted/50" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none placeholder:text-ink-muted/50" %>
+    </div>
+
+    <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+      <div class="inline">
+        <%= form.submit "Sign in", class: "w-full cursor-pointer rounded-lg bg-linear-to-r from-pink-500 to-violet-500 px-4 py-2 text-sm font-semibold text-white hover:from-pink-400 hover:to-violet-400" %>
+      </div>
+
+      <div class="mt-4 text-sm text-gray-500 sm:mt-0">
+        <%= link_to "Forgot password?", new_password_path, class: "text-sm text-sky-400 hover:text-sky-300" %>
+      </div>
+    </div>
+  <% end %>
+</div>

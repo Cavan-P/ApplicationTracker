@@ -77,4 +77,5 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   config.action_controller.action_on_unpermitted_parameters = :raise
+  config.action_controller.always_permitted_parameters = %w[ controller action authenticity_token commit ]
 end
