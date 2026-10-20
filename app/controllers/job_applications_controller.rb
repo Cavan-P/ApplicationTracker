@@ -3,6 +3,7 @@ class JobApplicationsController < ApplicationController
 
   def index
     @job_applications = Current.user.job_applications.order(applied_on: :desc)
+    @stats = JobApplicationStats.new(Current.user.job_applications)
   end
 
   def new
@@ -38,7 +39,7 @@ class JobApplicationsController < ApplicationController
   private
 
   def job_application_params
-    params.expect(job_application: [ :company, :role, :status, :applied_on, :url, :notes ])
+    params.expect(job_application: [ :company, :role, :status, :applied_on, :responded_on, :interviewed_on, :url, :notes ])
   end
 
   def set_job_application

@@ -27,6 +27,14 @@
         <%= form.date_field :applied_on, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
     </div>
     <div>
+        <%= form.label :responded_on, "Heard back on", class: "mb-1 block text-sm font-medium text-ink-muted" %>
+        <%= form.date_field :responded_on, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
+    </div>
+    <div>
+        <%= form.label :interviewed_on, "First interview", class: "mb-1 block text-sm font-medium text-ink-muted" %>
+        <%= form.date_field :interviewed_on, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
+    </div>
+    <div>
         <%= form.label :url, "Posting URL", class: "mb-1 block text-sm font-medium text-ink-muted" %>
         <%= form.url_field :url, class: "w-full rounded-lg border border-edge bg-night px-3 py-2 text-ink focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-400/30 focus:outline-none" %>
     </div>

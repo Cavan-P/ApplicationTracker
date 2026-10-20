@@ -1,0 +1,47 @@
+<% colors = JobApplicationsHelper::STATUS_CHART_COLORS %>
+<div class="mb-8 space-y-8 rounded-xl border border-edge bg-panel p-6">
+  <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+    <%= render "stat_ring", label: "Applications", value: stats.total,
+          detail: "#{stats.this_week} this week · #{stats.per_week}/wk", color: "stroke-sky-400" %>
+    <%= render "stat_ring", label: "Responses", value: "#{stats.response_rate}%", percent: stats.response_rate,
+          detail: [ pluralize(stats.responses, "reply"), stats.average_response_days && "avg #{stats.average_response_days}d" ].compact.join(" · "),
+          color: "stroke-pink-400" %>
+    <%= render "stat_ring", label: "Interviews", value: "#{stats.interview_rate}%", percent: stats.interview_rate,
+          detail: pluralize(stats.interviews, "interview"), color: "stroke-violet-400" %>
+    <%= render "stat_ring", label: "Offers", value: "#{stats.offer_rate}%", percent: stats.offer_rate,
+          detail: pluralize(stats.offers, "offer"), color: "stroke-emerald-400" %>
+    <%= render "status_ring", stats: stats %>
+  </div>
+
+  <div class="grid gap-8 lg:grid-cols-2">
+    <div>
+      <h2 class="mb-3 text-sm font-medium text-ink-muted">Applications per week</h2>
+      <% max = [ stats.weekly_counts.map(&:last).max, 1 ].max %>
+      <div class="flex gap-2">
+        <% stats.weekly_counts.each do |week, count| %>
+          <div class="flex flex-1 flex-col items-center gap-1">
+            <span class="text-xs text-ink-muted"><%= count %></span>
+            <div class="flex h-24 w-full items-end">
+              <div class="w-full rounded-t bg-linear-to-t from-violet-500 to-pink-400" style="height: <%= (count * 100.0 / max).round %>%"></div>
+            </div>
+            <span class="text-[10px] text-ink-muted"><%= week.strftime("%b %-d") %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="mb-3 text-sm font-medium text-ink-muted">Pipeline</h2>
+      <ul class="space-y-2 text-sm">
+        <% stats.status_counts.each do |status, count| %>
+          <li class="flex items-center gap-2">
+            <span class="size-2.5 rounded-full <%= colors[status][:dot] %>"></span>
+            <span class="text-ink-muted"><%= status.humanize %></span>
+            <span class="ml-auto font-medium"><%= count %></span>
+            <span class="w-10 text-right text-xs text-ink-muted/70"><%= stats.percent(count) %>%</span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

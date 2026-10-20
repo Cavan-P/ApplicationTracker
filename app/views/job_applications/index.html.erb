@@ -4,6 +4,8 @@
         class: "rounded-lg bg-linear-to-r from-pink-500 to-violet-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20 hover:from-pink-400 hover:to-violet-400" %>
 </div>
 
+<%= render "stats", stats: @stats %>
+
 <% if @job_applications.any? %>
   <div class="overflow-x-auto rounded-xl border border-edge bg-panel">
     <table class="min-w-full divide-y divide-edge text-sm">

@@ -69,4 +69,12 @@ class JobApplicationTest < ActiveSupport::TestCase
   test "new applications default to applied" do
     assert_equal "applied", JobApplication.new.status
   end
+
+  test "moving to interviewing records response and interview dates" do
+    job_application = job_applications(:acme)
+    job_application.update!(status: "interviewing")
+
+    assert_equal Date.current, job_application.responded_on
+    assert_equal Date.current, job_application.interviewed_on
+  end
 end

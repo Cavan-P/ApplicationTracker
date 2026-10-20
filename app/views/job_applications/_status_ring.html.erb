@@ -1,0 +1,23 @@
+<%# locals: (stats:) %>
+<div class="flex flex-col items-center gap-2">
+  <div class="relative size-24">
+    <svg viewBox="0 0 100 100" class="size-full -rotate-90">
+      <circle cx="50" cy="50" r="42" fill="none" stroke-width="8" class="stroke-edge" />
+      <% offset = 0 %>
+      <% stats.status_counts.each do |status, count| %>
+        <% next if count.zero? %>
+        <% length = count * 263.89 / stats.total %>
+        <circle cx="50" cy="50" r="42" fill="none" stroke-width="8"
+                class="<%= JobApplicationsHelper::STATUS_CHART_COLORS[status][:stroke] %>"
+                stroke-dasharray="<%= length.round(2) %> 263.89"
+                stroke-dashoffset="<%= -offset.round(2) %>" />
+        <% offset += length %>
+      <% end %>
+    </svg>
+    <div class="absolute inset-0 flex items-center justify-center text-xl font-bold"><%= stats.active %></div>
+  </div>
+  <div class="text-center">
+    <div class="text-xs uppercase tracking-wide text-ink-muted">Pipeline</div>
+    <div class="mt-0.5 text-xs text-ink-muted/70">active of <%= stats.total %></div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<%# locals: (label:, value:, percent: 100, color: "stroke-fuchsia-400", detail: nil) %>
+<div class="flex flex-col items-center gap-2">
+  <div class="relative size-24">
+    <svg viewBox="0 0 100 100" class="size-full -rotate-90">
+      <circle cx="50" cy="50" r="42" fill="none" stroke-width="8" class="stroke-edge" />
+      <% if percent.positive? %>
+        <circle cx="50" cy="50" r="42" fill="none" stroke-width="8" stroke-linecap="round"
+                class="<%= color %>"
+                stroke-dasharray="<%= (percent.clamp(0, 100) * 2.6389).round(2) %> 263.89" />
+      <% end %>
+    </svg>
+    <div class="absolute inset-0 flex items-center justify-center text-xl font-bold"><%= value %></div>
+  </div>
+  <div class="text-center">
+    <div class="text-xs uppercase tracking-wide text-ink-muted"><%= label %></div>
+    <% if detail %>
+      <div class="mt-0.5 text-xs text-ink-muted/70"><%= detail %></div>
+    <% end %>
+  </div>
+</div>

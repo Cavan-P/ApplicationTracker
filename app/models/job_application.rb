@@ -13,4 +13,15 @@ class JobApplication < ApplicationRecord
 
   validates :company, :role, presence: true
   validates :url, format: { with: %r{\Ahttps?://\S+\z} }, allow_blank: true
+
+  before_save :record_milestones
+
+  private
+
+  def record_milestones
+    return unless will_save_change_to_status?
+
+    self.responded_on ||= Date.current unless applied? || ghosted?
+    self.interviewed_on ||= Date.current if interviewing? || offer?
+  end
 end

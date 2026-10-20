@@ -18,13 +18,22 @@ class User < ApplicationRecord
   end
 
   def self.demo_applications
+    today = Date.current
     [
-      { company: "Nimbus Labs", role: "Junior Rails Developer", status: "interviewing", applied_on: 12.days.ago, url: "https://example.com/jobs/1" },
-      { company: "Brightwave", role: "Full-Stack Engineer", status: "applied", applied_on: 3.days.ago },
-      { company: "Copperline", role: "Backend Engineer", status: "offer", applied_on: 30.days.ago, notes: "Offer call Friday" },
-      { company: "Driftwood Games", role: "Gameplay Programmer", status: "rejected", applied_on: 21.days.ago },
-      { company: "Lumen Health", role: "Software Engineer I", status: "ghosted", applied_on: 45.days.ago },
-      { company: "Parcel & Pine", role: "Web Developer", status: "applied", applied_on: 1.day.ago }
+      { company: "Nimbus Labs", role: "Junior Rails Developer", status: "interviewing", applied_on: today - 12, responded_on: today - 8, interviewed_on: today - 4, url: "https://example.com/jobs/1" },
+      { company: "Brightwave", role: "Full-Stack Engineer", status: "applied", applied_on: today - 3 },
+      { company: "Copperline", role: "Backend Engineer", status: "offer", applied_on: today - 30, responded_on: today - 25, interviewed_on: today - 20, notes: "Offer call Friday" },
+      { company: "Driftwood Games", role: "Gameplay Programmer", status: "rejected", applied_on: today - 21, responded_on: today - 14 },
+      { company: "Lumen Health", role: "Software Engineer I", status: "ghosted", applied_on: today - 45 },
+      { company: "Parcel & Pine", role: "Web Developer", status: "applied", applied_on: today - 1 },
+      { company: "Harbor Analytics", role: "Data Engineer", status: "rejected", applied_on: today - 38, responded_on: today - 33, interviewed_on: today - 30 },
+      { company: "Quillstone", role: "Ruby on Rails Developer", status: "interviewing", applied_on: today - 9, responded_on: today - 6, interviewed_on: today - 2 },
+      { company: "Orbit Commerce", role: "Frontend Developer", status: "ghosted", applied_on: today - 52 },
+      { company: "Tallgrass Software", role: "Associate Engineer", status: "rejected", applied_on: today - 17, responded_on: today - 15 },
+      { company: "Pixelforge Studios", role: "Tools Programmer", status: "applied", applied_on: today - 6 },
+      { company: "Meridian Bank", role: "Software Developer", status: "ghosted", applied_on: today - 27 },
+      { company: "Fernway", role: "Platform Engineer", status: "interviewing", applied_on: today - 15, responded_on: today - 11, interviewed_on: today - 7 },
+      { company: "Sundial Apps", role: "Mobile Developer", status: "applied", applied_on: today }
     ]
   end
 end
