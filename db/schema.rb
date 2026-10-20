@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_19_204838) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_20_003208) do
   create_table "job_applications", force: :cascade do |t|
     t.string "company", null: false
     t.string "role"
@@ -20,6 +20,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_19_204838) do
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_job_applications_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -36,8 +38,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_19_204838) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "demo", default: false, null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "job_applications", "users"
   add_foreign_key "sessions", "users"
 end

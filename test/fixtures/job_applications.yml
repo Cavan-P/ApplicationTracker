@@ -4,9 +4,11 @@ acme:
   status: applied
   applied_on: 2026-10-01
   url: https://acme.example.com/jobs/1
+  user: one
 
 globex:
   company: Globex
   role: Backend Intern
   status: interviewing
   applied_on: 2026-09-15
+  user: two

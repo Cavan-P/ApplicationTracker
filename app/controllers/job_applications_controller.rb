@@ -2,15 +2,15 @@ class JobApplicationsController < ApplicationController
   before_action :set_job_application, only: [ :edit, :update, :destroy ]
 
   def index
-    @job_applications = JobApplication.order(applied_on: :desc)
+    @job_applications = Current.user.job_applications.order(applied_on: :desc)
   end
 
   def new
-    @job_application = JobApplication.new
+    @job_application = Current.user.job_applications.new
   end
 
   def create
-    @job_application = JobApplication.new(job_application_params)
+    @job_application = Current.user.job_applications.new(job_application_params)
 
     if @job_application.save
       redirect_to job_applications_path, notice: "Application added."
@@ -42,6 +42,6 @@ class JobApplicationsController < ApplicationController
   end
 
   def set_job_application
-    @job_application = JobApplication.find(params.expect(:id))
+    @job_application = Current.user.job_applications.find(params.expect(:id))
   end
 end

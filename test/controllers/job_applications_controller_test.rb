@@ -48,10 +48,6 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Acme Inc", @job_application.reload.company
   end
 
-  # YOUR TURN 1: "deletes an application"
-  #   - sign in
-  #   - like "creates", but the count should change by -1
-  #   - the request is: delete job_application_path(@job_application)
   test "deletes an application" do
     sign_in_as users(:one)
 
@@ -60,16 +56,26 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # YOUR TURN 2: "cannot create when logged out"
-  #   - do NOT sign in
-  #   - like "does not create an invalid application", but with VALID params
-  #   - then assert it redirected to the sign-in page
-
   test "cannot create when logged out" do
     assert_no_difference "JobApplication.count" do
       post job_applications_path, params: { job_application: { company: "A", role: "Developer" } }
     end
 
     assert_redirected_to new_session_path
+  end
+
+  test "does not list another user's applications" do
+    sign_in_as users(:one)
+    get job_applications_path
+
+    assert_select "td", text: "Acme Corp"
+    assert_select "td", text: "Globex", count: 0
+  end
+
+  test "cannot edit another user's application" do
+    sign_in_as users(:one)
+    get edit_job_application_path(job_applications(:globex))
+
+    assert_response :not_found
   end
 end

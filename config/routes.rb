@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "job_applications#index"
   resources :job_applications, except: [ :show ]
+
+  resource :demo_session, only: :create
 end

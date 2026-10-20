@@ -31,6 +31,12 @@
         </div>
       <% end %>
 
+      <% if Current.user&.demo? %>
+        <div class="mb-4 rounded-lg bg-violet-500/10 px-4 py-2 text-sm text-violet-300 ring-1 ring-violet-500/30">
+          You're viewing a demo account with sample data.
+        </div>
+      <% end %>
+
       <% if alert %>
         <div id="alert" class="mb-4 rounded-lg bg-rose-500/10 px-4 py-2 text-rose-300 ring-1 ring-rose-500/30"><%= alert %></div>
       <% end %>

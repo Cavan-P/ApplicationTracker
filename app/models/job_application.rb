@@ -1,6 +1,8 @@
 # Ruby standard is 2 space indentation I guess
 
 class JobApplication < ApplicationRecord
+  belongs_to :user
+
   enum :status, {
     applied: "applied",
     interviewing: "interviewing",

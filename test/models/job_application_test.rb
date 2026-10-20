@@ -13,6 +13,14 @@ class JobApplicationTest < ActiveSupport::TestCase
     assert_includes job_application.errors[:company], "can't be blank"
   end
 
+  test "requires a user" do
+    job_application = job_applications(:acme)
+    job_application.user = nil
+
+    assert_not job_application.valid?
+    assert_includes job_application.errors[:user], "must exist"
+  end
+
   test "requires a role" do
     job_application = job_applications(:acme)
     job_application.role = ""
