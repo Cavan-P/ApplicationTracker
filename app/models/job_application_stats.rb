@@ -14,7 +14,8 @@ class JobApplicationStats
   end
 
   def responses
-    @job_applications.where.not(responded_on: nil).count
+    @job_applications.where(status: %w[ interviewing offer rejected ])
+      .or(@job_applications.where.not(responded_on: nil)).count
   end
 
   def interviews

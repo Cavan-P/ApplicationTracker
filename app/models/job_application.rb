@@ -19,7 +19,7 @@ class JobApplication < ApplicationRecord
   private
 
   def record_milestones
-    return unless will_save_change_to_status?
+    return unless persisted? && will_save_change_to_status?
 
     self.responded_on ||= Date.current unless applied? || ghosted?
     self.interviewed_on ||= Date.current if interviewing? || offer?
