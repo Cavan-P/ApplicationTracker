@@ -15,19 +15,31 @@
 
   <div class="grid gap-8 lg:grid-cols-2">
     <div>
-      <h2 class="mb-3 text-sm font-medium text-ink-muted">Applications per week</h2>
-      <% max = [ stats.weekly_counts.map(&:last).max, 1 ].max %>
-      <div class="flex gap-2">
-        <% stats.weekly_counts.each do |week, count| %>
-          <div class="flex flex-1 flex-col items-center gap-1">
-            <span class="text-xs text-ink-muted"><%= count %></span>
-            <div class="flex h-24 w-full items-end">
-              <div class="w-full rounded-t bg-linear-to-t from-violet-500 to-pink-400" style="height: <%= (count * 100.0 / max).round %>%"></div>
-            </div>
-            <span class="text-[10px] text-ink-muted"><%= week.strftime("%b %-d") %></span>
+      <%= turbo_frame_tag "weekly_chart" do %>
+        <div class="mb-3 flex items-center justify-between">
+          <h2 class="text-sm font-medium text-ink-muted">Applications per week</h2>
+          <div class="flex gap-4 text-sm">
+            <% if stats.older_weeks? %>
+              <%= link_to "← Older", job_applications_path(weeks_ago: stats.weeks_ago + JobApplicationStats::WEEKS_SHOWN), class: "text-sky-400 hover:text-sky-300" %>
+            <% end %>
+            <% if stats.weeks_ago.positive? %>
+              <%= link_to "Newer →", job_applications_path(weeks_ago: [ stats.weeks_ago - JobApplicationStats::WEEKS_SHOWN, 0 ].max), class: "text-sky-400 hover:text-sky-300" %>
+            <% end %>
           </div>
-        <% end %>
-      </div>
+        </div>
+        <% max = [ stats.weekly_counts.map(&:last).max, 1 ].max %>
+        <div class="flex gap-2">
+          <% stats.weekly_counts.each do |week, count| %>
+            <div class="flex flex-1 flex-col items-center gap-1">
+              <span class="text-xs text-ink-muted"><%= count %></span>
+              <div class="flex h-24 w-full items-end">
+                <div class="w-full rounded-t bg-linear-to-t from-violet-500 to-pink-400" style="height: <%= (count * 100.0 / max).round %>%"></div>
+              </div>
+              <span class="text-[10px] text-ink-muted"><%= week.strftime(week.year == Date.current.year ? "%b %-d" : "%b %-d '%y") %></span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
     <div>

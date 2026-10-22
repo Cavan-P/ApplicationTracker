@@ -78,4 +78,27 @@ class JobApplicationsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :not_found
   end
+
+  test "filters by status" do
+    sign_in_as users(:one)
+    get job_applications_path(status: "rejected")
+
+    assert_select "td", text: "Acme Corp", count: 0
+  end
+
+  test "searches company and role" do
+    sign_in_as users(:one)
+    get job_applications_path(q: "acm")
+
+    assert_select "td", text: "Acme Corp"
+  end
+
+  test "paginates" do
+    user = users(:one)
+    30.times { |i| user.job_applications.create!(company: "Company #{i}", role: "Dev", applied_on: Date.current) }
+    sign_in_as user
+    get job_applications_path(page: 2)
+
+    assert_select "tbody tr", 6
+  end
 end

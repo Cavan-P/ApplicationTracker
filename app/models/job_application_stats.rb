@@ -1,8 +1,11 @@
 class JobApplicationStats
   WEEKS_SHOWN = 8
 
-  def initialize(job_applications)
+  attr_reader :weeks_ago
+
+  def initialize(job_applications, weeks_ago: 0)
     @job_applications = job_applications
+    @weeks_ago = weeks_ago
   end
 
   def total
@@ -69,14 +72,17 @@ class JobApplicationStats
   end
 
   def weekly_counts
-    start = Date.current.beginning_of_week - (WEEKS_SHOWN - 1).weeks
-    counts = @job_applications.where(applied_on: start..).pluck(:applied_on)
+    counts = @job_applications.where(applied_on: chart_start...(chart_end + 1.week)).pluck(:applied_on)
       .group_by(&:beginning_of_week).transform_values(&:size)
 
     (0...WEEKS_SHOWN).map do |i|
-      week = start + i.weeks
+      week = chart_start + i.weeks
       [ week, counts.fetch(week, 0) ]
     end
+  end
+
+  def older_weeks?
+    @job_applications.where(applied_on: ...chart_start).exists?
   end
 
   def status_counts
@@ -87,5 +93,15 @@ class JobApplicationStats
     return 0 if total.zero?
 
     (count * 100.0 / total).round
+  end
+
+  private
+
+  def chart_end
+    Date.current.beginning_of_week - @weeks_ago.weeks
+  end
+
+  def chart_start
+    chart_end - (WEEKS_SHOWN - 1).weeks
   end
 end
